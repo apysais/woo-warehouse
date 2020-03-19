@@ -1,4 +1,5 @@
 <h3><?php echo $title;?></h3>
+
 <table class="table">
   <thead>
     <tr>
@@ -11,23 +12,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    <?php if ( $orders ) : ?>
+      <?php foreach ( $orders as $order ) : ?>
+        <tr>
+          <td scope="row"><?php echo $order->get_id(); ?></td>
+          <td><?php echo $order->get_status(); ?></td>
+          <td><?php echo $order->get_customer_id(); ?></td>
+          <td><?php echo $order->get_item_count(); ?></td>
+          <td><?php echo $order->get_formatted_order_total(); ?></td>
+          <td>Action</td>
+        </tr>
+      <?php endforeach; ?>
+    <?php endif; ?>
   </tbody>
 </table>

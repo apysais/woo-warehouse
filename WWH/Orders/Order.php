@@ -46,9 +46,19 @@ class WWH_Orders_Order {
    * Get new orders, this is for officers only.
    */
 	public function getNewOrders() {
+		$query_args = [
+		    'limit' => -1,
+				'status' => ['processing'],
+		    'orderby' => 'date',
+		    'order' => 'DESC',
+		];
+		$orders = wc_get_orders( $query_args );
+		
     $data = [
-      'title' => 'New Orders'
+      'title' => 'New Orders',
+			'orders' => $orders
     ];
+
     WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
   }
 
