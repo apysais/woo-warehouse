@@ -48,12 +48,12 @@ class WWH_Orders_Order {
 	public function getNewOrders() {
 		$query_args = [
 		    'limit' => -1,
-				'status' => ['processing'],
+				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'date',
 		    'order' => 'DESC',
 		];
 		$orders = wc_get_orders( $query_args );
-		
+
     $data = [
       'title' => 'New Orders',
 			'orders' => $orders
