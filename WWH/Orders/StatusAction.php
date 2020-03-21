@@ -3,10 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
-* Template Include.
-**/
-class WWH_TemplateInclude
-{
+ * Change the warehouse status.
+ * @since 0.0.1
+ * */
+class WWH_Orders_StatusAction {
   /**
 	 * instance of this class
 	 *
@@ -40,25 +40,26 @@ class WWH_TemplateInclude
 		return self::$instance;
 	}
 
-  public function __construct() {
-    add_filter( 'template_include', [$this, 'wharehouseTemplate'], 99 );
-  }
+  public function __construct() { }
 
-  public function wharehouseTemplate( $template ) {
+  /**
+   * Display status button
+   * @param array $arg }
+   *  @type string $status
+   *  @type string $url
+   * }
+   */
+  public function show( $arg = []) {
+    $status = 'new';
+    $html = '';
 
-    if ( is_page( 'warehouse' )  ) {
-        $action = '';
-        if ( isset( $_GET['action'] ) ) {
-          $action = $_GET['action'];
-        }
-        $args = [
-          'action' => $action
-        ];
-        return WWH_Dashboard_Index::get_instance()->route( $args );
+    if ( isset($arg['status']) && $arg['status'] == 'new' ) {
+      $html = "<a href='?action=set-order&status=new' class='btn btn-info'>";
+        $html .= "New";
+      $html .= "</a>";
     }
 
-    return $template;
+    echo $html;
   }
-
 
 }//

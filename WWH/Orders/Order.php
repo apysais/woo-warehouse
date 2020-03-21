@@ -42,6 +42,10 @@ class WWH_Orders_Order {
 
   public function __construct() { }
 
+	public function getReleasedOrders() {
+		
+	}
+
   /**
    * Get new orders, this is for officers only.
    */
@@ -62,6 +66,23 @@ class WWH_Orders_Order {
     WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
   }
 
+	/**
+	 * get all orders.
+	 **/
+	public function getAll() {
+		$query_args = [
+	    'paginate' => true,
+	    'orderby' => 'date',
+	    'order' => 'DESC',
+		];
+		$orders = wc_get_orders( $query_args );
 
+    $data = [
+      'title' => 'Orders',
+			'orders' => $orders
+    ];
+
+    WWH_View::get_instance()->public_partials( 'orders/office/orders.php', $data );
+	}
 
 }//

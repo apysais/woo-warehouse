@@ -1,1 +1,18 @@
+https://youtu.be/JTYsPAVPX_Y
+
+permalinks
 https://www.pmg.com/blog/a-mostly-complete-guide-to-the-wordpress-rewrite-api/?cn-reloaded=1
+
+get order info
+https://businessbloomer.com/woocommerce-easily-get-order-info-total-items-etc-from-order-object/
+
+get order note
+https://stackoverflow.com/questions/43463217/get-order-notes-from-a-woocommerce-order-wc-order-object
+https://docs.woocommerce.com/wc-apidocs/source-function-wc_get_order_notes.html#957-1042
+
+add order note
+https://stackoverflow.com/questions/48667381/add-a-custom-order-note-programmatically-in-woocommerce-admin-order-edit-pages
+https://docs.woocommerce.com/wp-content/images/wc-apidocs/class-WC_Order.html#_add_order_note
+
+product variations
+https://stackoverflow.com/questions/45503922/get-product-variations-based-on-product-id

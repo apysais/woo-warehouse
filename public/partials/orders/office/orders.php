@@ -1,5 +1,8 @@
 <h3><?php echo $title;?></h3>
-
+<?php
+echo $orders->total . " orders found\n";
+echo 'Page 1 of ' . $orders->max_num_pages . "\n";
+?>
 <table class="table">
   <thead>
     <tr>
@@ -9,30 +12,18 @@
       <th scope="col">Items</th>
       <th scope="col">Total</th>
       <th scope="col">Actions</th>
-      <th scope="col">Colli</th>
-      <th scope="col">Placement</th>
     </tr>
   </thead>
   <tbody>
     <?php if ( $orders ) : ?>
-      <?php foreach ( $orders as $order ) : ?>
+      <?php foreach ( $orders->orders as $order ) : ?>
         <tr>
           <td scope="row"><?php echo $order->get_id(); ?></td>
           <td><?php echo $order->get_status(); ?></td>
           <td><?php echo $order->get_customer_id(); ?></td>
           <td><?php echo $order->get_item_count(); ?></td>
           <td><?php echo $order->get_formatted_order_total(); ?></td>
-          <td>
-            <a href="#" class="btn btn-primary">Details</a>
-            <?php
-              $status_arg = [
-                'status' => WWH_Orders_WareHouseStatus::get_instance()->get( $order->get_id() )
-              ];
-              WWH_Orders_StatusAction::get_instance()->show($status_arg);
-            ?>
-          </td>
-          <td>Colli</td>
-          <td>Placement</td>
+          <td>Action</td>
         </tr>
       <?php endforeach; ?>
     <?php endif; ?>

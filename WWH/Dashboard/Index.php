@@ -42,20 +42,18 @@ class WWH_Dashboard_Index {
 
   public function __construct() { }
 
-  public function index() {
-    echo 'index';
-  }
-
-	public function route( $args = [] )
-	{
+	public function route( $args = [] )	{
 
     $action = isset( $args['action'] ) ? $args['action'] : false;
 
     switch ( $action ) {
+			case 'orders':
+				add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getAll'], 100);
+				break;
       case 'dashboard' :
       default :
         add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getNewOrders'], 100);
-      break;
+      	break;
     }
 
     return WWH_View::get_instance()->public_part_partials( 'dashboard/index.php' );
