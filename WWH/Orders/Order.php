@@ -43,15 +43,31 @@ class WWH_Orders_Order {
   public function __construct() { }
 
 	public function getReleasedOrders() {
-		
+		$query_args = [
+		    'limit' => -1,
+		    'orderby' => 'date',
+		    'order' => 'DESC',
+				'meta_key' => 'wh_order_status',
+				'meta_value' => ['released', 'working']
+		];
+		$orders = wc_get_orders( $query_args );
+
+    $data = [
+      'title' => 'For Released Orders',
+			'orders' => $orders
+    ];
+
+    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
 	}
 
   /**
    * Get new orders, this is for officers only.
    */
 	public function getNewOrders() {
+		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
-		    'limit' => -1,
+				'paginate' => true,
+		    'paged' => $paged,
 				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'date',
 		    'order' => 'DESC',
@@ -70,8 +86,10 @@ class WWH_Orders_Order {
 	 * get all orders.
 	 **/
 	public function getAll() {
+		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
 	    'paginate' => true,
+			'paged' => $paged,
 	    'orderby' => 'date',
 	    'order' => 'DESC',
 		];
@@ -81,8 +99,66 @@ class WWH_Orders_Order {
       'title' => 'Orders',
 			'orders' => $orders
     ];
-
+		//wwh_dd($orders);exit();
     WWH_View::get_instance()->public_partials( 'orders/office/orders.php', $data );
+	}
+
+	/**
+	 * Display order details.
+	 */
+	public function getOrderDetailsView( $arg = [] ) {
+		$order_id = false;
+		if ( isset($arg['order_id']) ) {
+			$order_id = $arg['order_id'];
+			$data = [
+				'order_id' => $order_id
+			];
+			WWH_View::get_instance()->public_partials( 'orders/details.php', $data );
+		}
+	}
+
+	/**
+	 * get the order details and display.
+	 */
+	public function getOrderDetails() {
+
+		if ( WWH_User_Check::get_instance()->is_admin() ) {
+			if ( isset($_GET['_nonce']) && isset($_GET['order-id']) ) {
+				$order_id = $_GET['order-id'];
+				$nonce 		= $_GET['_nonce'];
+				$status 	= $_GET['status'];
+				$nonce_url_args = [
+					'order_id' => $order_id,
+					'name' => $nonce,
+				];
+				$verify_nonce_url = WWH_Nonce_Nonces::get_instance()->verifyNonceNewOrderUrl($nonce_url_args);
+				$verify_nonce_url_release = WWH_Nonce_Nonces::get_instance()->verifyNonceReleasedOrderUrl($nonce_url_args);
+				if( $verify_nonce_url || $verify_nonce_url_release ) {
+					$details_arg = [
+						'order_id' => $order_id
+					];
+					$this->getOrderDetailsView($details_arg);
+				}
+			}
+		} elseif ( WWH_User_Check::get_instance()->is_admin() || WWH_User_Check::get_instance()->is_warehouse() ) {
+			if ( isset($_GET['_nonce']) && isset($_GET['order-id']) ) {
+				$order_id = $_GET['order-id'];
+				$nonce 		= $_GET['_nonce'];
+				$status 	= $_GET['status'];
+				$nonce_url_args = [
+					'order_id' => $order_id,
+					'name' => $nonce,
+				];
+				$verify_nonce_url_release = WWH_Nonce_Nonces::get_instance()->verifyNonceReleasedOrderUrl($nonce_url_args);
+				if( $verify_nonce_url_release ) {
+					$details_arg = [
+						'order_id' => $order_id
+					];
+					$this->getOrderDetailsView($details_arg);
+				}
+			}
+		}
+
 	}
 
 }//

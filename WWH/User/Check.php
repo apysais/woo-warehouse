@@ -3,10 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
-* Template Include.
-**/
-class WWH_TemplateInclude
-{
+ * check the user.
+ * @since 0.0.1
+ * */
+class WWH_User_Check {
   /**
 	 * instance of this class
 	 *
@@ -40,25 +40,36 @@ class WWH_TemplateInclude
 		return self::$instance;
 	}
 
-  public function __construct() {
-    add_filter( 'template_include', [$this, 'wharehouseTemplate'], 99 );
+  public function __construct() { }
+
+  public function user_role() {
+    $user = wp_get_current_user();
+
+    return $user->roles;
   }
 
-  public function wharehouseTemplate( $template ) {
+  public function is_logged_in() {
+    return is_user_logged_in();
+  }
 
-    if ( is_page( WWH_PAGE_URL ) ) {
-        $action = '';
-        if ( isset( $_GET['action'] ) ) {
-          $action = $_GET['action'];
-        }
-        $args = [
-          'action' => $action
-        ];
-        return WWH_Dashboard_Index::get_instance()->route( $args );
+  public function is_admin() {
+    if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
+      return true;
     }
-
-    return $template;
   }
 
+  public function is_warehouse() {
+
+    if ( is_user_logged_in() && current_user_can('warehouse_role') ) {
+      return true;
+    }
+  }
+
+	public function loginForm() {
+		$data = [
+			'redirect' => home_url(WWH_PAGE_URL . '/?action=dashboard')
+		];
+		WWH_View::get_instance()->public_partials( 'orders/login.php', $data );
+	}
 
 }//

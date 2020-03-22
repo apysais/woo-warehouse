@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              apyc.com
- * @since             1.0.0
+ * @since             1.2.0
  * @package           Woo_Warehouse
  *
  * @wordpress-plugin
  * Plugin Name:       WooCommerce Warehouse
  * Plugin URI:        apyc.com
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Version:           1.2.0
  * Author:            allan paul casilum
  * Author URI:        apyc.com
  * License:           GPL-2.0+
@@ -35,8 +35,9 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WOO_WAREHOUSE_VERSION', '1.0.0' );
+define( 'WOO_WAREHOUSE_VERSION', '1.2.0' );
 define( 'WWH_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'WWH_PAGE_URL', 'warehouse' );
 /**
  * For autoloading classes
  * */
@@ -142,6 +143,6 @@ function run_woo_warehouse() {
 add_action('plugins_loaded', 'run_woo_warehouse');
 
 function wwh_init() {
-
+	WWH_Dashboard_Index::get_instance()->postSubmit();
 }
 add_action( 'init', 'wwh_init' );

@@ -3,9 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
-* Template Include.
+* Customer Info.
 **/
-class WWH_TemplateInclude
+class WWH_Orders_CustomerInfo
 {
   /**
 	 * instance of this class
@@ -41,23 +41,12 @@ class WWH_TemplateInclude
 	}
 
   public function __construct() {
-    add_filter( 'template_include', [$this, 'wharehouseTemplate'], 99 );
+
   }
 
-  public function wharehouseTemplate( $template ) {
-
-    if ( is_page( WWH_PAGE_URL ) ) {
-        $action = '';
-        if ( isset( $_GET['action'] ) ) {
-          $action = $_GET['action'];
-        }
-        $args = [
-          'action' => $action
-        ];
-        return WWH_Dashboard_Index::get_instance()->route( $args );
-    }
-
-    return $template;
+  public function show() {
+    $data = [];
+    WWH_View::get_instance()->public_partials( 'orders/customer-info.php', $data );
   }
 
 
