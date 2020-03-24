@@ -58,8 +58,7 @@ class WWH_Orders_Release
   public function showReleased( $arg = [] ) {
     $data = [];
     $post_id = $arg['order_id'];
-    if ( ( WWH_User_Check::get_instance()->is_admin()
-				|| WWH_User_Check::get_instance()->is_warehouse() )
+    if ( ( WWH_User_Check::get_instance()->is_admin() || WWH_User_Check::get_instance()->is_warehouse() )
 				&& ( WWH_Orders_WareHouseStatus::get_instance()->get($post_id) == 'released' || WWH_Orders_WareHouseStatus::get_instance()->get($post_id) == 'working' )
 		) {
       $data = [

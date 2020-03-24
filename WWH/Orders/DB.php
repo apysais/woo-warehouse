@@ -54,8 +54,6 @@ class WWH_Orders_DB {
       //add order note, internally
       if ( $note ) {
         $order = wc_get_order(  $order_id );
-        // The text for the note
-        $note = __("This is my note's text…");
         // Add the note
         $order->add_order_note( $note );
         WWH_Orders_WareHouseStatus::get_instance()->setToReleased( $order_id );

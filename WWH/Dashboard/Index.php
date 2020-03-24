@@ -47,22 +47,43 @@ class WWH_Dashboard_Index {
 		if ( $_POST && isset( $_POST['wwh_action'] ) ) {
 			$action = isset( $_POST['wwh_action'] ) ? $_POST['wwh_action'] : false;
 			$order_id = $_POST['order_id'];
-			//wwh_dd($_POST);exit();
 			if ( $action ) {
 				switch( $action ) {
 					case 'finish-order':
 						$args = [
 							'order_id' => $order_id,
-							'colli' => isset($_POST['numberOfColli']) ? $_POST['numberOfColli'] : 0,
+							'colli' => isset($_POST['colli']) ? $_POST['colli'] : 0,
 							'placement' => isset($_POST['placement']) ? $_POST['placement'] : 0,
 						];
-						WWH_Orders_DB::get_instance()->setFinishOrder($args);
+
+						$verify_nonce = WWH_Nonce_Nonces::get_instance()->verifyNonceField([
+							'order_id'		=>	$order_id,
+							'user_id'     =>  get_current_user_id(),
+							'action_name'	=>	'set-finish-order-',
+							'request_nonce'	=> isset($_POST['_nonce']) ? $_POST['_nonce'] : ''
+						]);
+
+						if ( $verify_nonce ) {
+							WWH_Orders_DB::get_instance()->setFinishOrder($args);
+						}
+
 						break;
 					case 'start-order':
-						$args = [
-							'order_id' => $order_id,
-						];
-						WWH_Orders_DB::get_instance()->setWorkingOrder($args);
+						$verify_nonce = WWH_Nonce_Nonces::get_instance()->verifyNonceField([
+							'order_id'		=>	$order_id,
+							'user_id'     =>  get_current_user_id(),
+							'action_name'	=>	'set-order-start-',
+							'request_nonce'	=> isset($_POST['_nonce']) ? $_POST['_nonce'] : ''
+						]);
+
+						if ( $verify_nonce ) {
+							$args = [
+								'order_id' => $order_id,
+							];
+
+							WWH_Orders_DB::get_instance()->setWorkingOrder($args);
+						}
+
 						break;
 					case 'release-order':
 						$args = [

@@ -43,13 +43,16 @@ class WWH_Orders_Order {
   public function __construct() { }
 
 	public function getReleasedOrders() {
+		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
-		    'limit' => -1,
+				'paginate' => true,
+				'paged' => $paged,
 		    'orderby' => 'date',
 		    'order' => 'DESC',
 				'meta_key' => 'wh_order_status',
-				'meta_value' => ['released', 'working']
+				'meta_value' => ['released', 'working'],
 		];
+
 		$orders = wc_get_orders( $query_args );
 
     $data = [
@@ -71,6 +74,8 @@ class WWH_Orders_Order {
 				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'date',
 		    'order' => 'DESC',
+				'meta_key' => 'wh_order_status',
+				'meta_compare' => 'NOT EXISTS'
 		];
 		$orders = wc_get_orders( $query_args );
 

@@ -56,11 +56,14 @@
           </td>
           <td>
             <?php
-              echo WWH_Orders_Meta::get_instance()->placement([
+              $placement = WWH_Orders_Meta::get_instance()->placement([
                 'post_id' => $order_id,
                 'action' => 'r',
                 'single' => true
               ]);
+              if ( $placement ) {
+                echo 'Building ' . $placement;
+              }
             ?>
           </td>
         </tr>

@@ -46,6 +46,33 @@ class WWH_Nonce_Nonces {
     return wp_nonce_url( $action_url, $action, $name);
   }
 
+	public function setNonceField( $args = [] ) {
+
+		$order_id = $args['order_id'];
+		$action_name = isset( $args['action_name'] ) ? $args['action_name'] : 'set-warehouse-action-';
+		$user_id  = get_current_user_id();
+		if ( isset($args['user_id']) ) {
+			$user_id  = $args['user_id'];
+		}
+		$action = $action_name . $order_id . $user_id;
+
+		return $action;
+	}
+
+	public function verifyNonceField( $args = [] ) {
+		$action_name = isset( $args['action_name'] ) ? $args['action_name'] : 'set-warehouse-action-';
+		$request_nonce = isset( $args['request_nonce'] ) ? $args['request_nonce'] : '';
+
+    $order_id = $args['order_id'];
+    $user_id  = get_current_user_id();
+    if ( isset($args['user_id']) ) {
+      $user_id  = $args['user_id'];
+    }
+    $action = $action_name . $order_id . $user_id;
+
+    return wp_verify_nonce($request_nonce, $action);
+	}
+
   public function setNewOrderNonce( $args = [] ) {
     $action_url = $args['action_url'];
 
@@ -82,19 +109,6 @@ class WWH_Nonce_Nonces {
     $action = 'set-released-order-' . $order_id . $user_id;
 
     return $this->setNonceUrl($action_url, $action, $name);
-  }
-
-  public function setNonceField( $args = [] ) {
-
-    $order_id = $args['order_id'];
-
-    $user_id  = get_current_user_id();
-    if ( isset($args['user_id']) ) {
-      $user_id  = $args['user_id'];
-    }
-    $action = 'set-new-order-' . $order_id . $user_id;
-
-    return $action;
   }
 
   public function verifyNonceNewOrderUrl( $args = [] ) {
