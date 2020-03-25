@@ -98,7 +98,11 @@ class Woo_Warehouse_Public {
 
 		wp_enqueue_script( 'bootstrap4-iso', WWH_PLUGIN_URL . 'assets/bootstrap-iso/bootstrap.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woo-warehouse-public.js', array( 'jquery' ), $this->version, false );
-
+		// Localize the script with new data
+		$wwh_localize_arr = array(
+		    'ajax_url' => admin_url( 'admin-ajax.php' )
+		);
+		wp_localize_script( $this->plugin_name, 'wwh', $wwh_localize_arr );
 	}
 
 }

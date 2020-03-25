@@ -47,7 +47,7 @@ class WWH_Orders_Order {
 		$query_args = [
 				'paginate' => true,
 				'paged' => $paged,
-		    'orderby' => 'date',
+		    'orderby' => 'modified',
 		    'order' => 'DESC',
 				'meta_key' => 'wh_order_status',
 				'meta_value' => ['released', 'working'],
@@ -57,7 +57,8 @@ class WWH_Orders_Order {
 
     $data = [
       'title' => 'For Released Orders',
-			'orders' => $orders
+			'orders' => $orders,
+			'app' => 'index',
     ];
 
     WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
@@ -72,7 +73,7 @@ class WWH_Orders_Order {
 				'paginate' => true,
 		    'paged' => $paged,
 				'status' => ['processing', 'on-hold'],
-		    'orderby' => 'date',
+		    'orderby' => 'modified',
 		    'order' => 'DESC',
 				'meta_key' => 'wh_order_status',
 				'meta_compare' => 'NOT EXISTS'
@@ -81,7 +82,8 @@ class WWH_Orders_Order {
 
     $data = [
       'title' => 'New Orders',
-			'orders' => $orders
+			'orders' => $orders,
+			'app' => 'index',
     ];
 
     WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );

@@ -69,7 +69,7 @@ class WWH_User_Check {
 		$data = [
 			'redirect' => home_url(WWH_PAGE_URL . '/?action=dashboard')
 		];
-		WWH_View::get_instance()->public_partials( 'orders/login.php', $data );
+		WWH_View::get_instance()->public_partials( 'login.php', $data );
 	}
 
 }//

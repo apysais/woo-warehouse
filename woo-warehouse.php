@@ -138,6 +138,7 @@ function run_woo_warehouse() {
 	show_admin_bar(false);
 
 	WWH_TemplateInclude::get_instance();
+	WWH_Ajax::get_instance();
 }
 //run_woo_warehouse();
 add_action('plugins_loaded', 'run_woo_warehouse');

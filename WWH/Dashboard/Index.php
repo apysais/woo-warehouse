@@ -15,7 +15,7 @@ class WWH_Dashboard_Index {
 	 * @var	null
 	 * */
 	protected static $instance = null;
-
+	protected $action;
 	/**
 	 * Return an instance of this class.
 	 *
@@ -42,6 +42,14 @@ class WWH_Dashboard_Index {
 
   public function __construct() { }
 
+	public function setAction( $action ) {
+		$this->action = $action;
+	}
+
+	public function getAction( ) {
+		return $this->action;
+	}
+
 	public function postSubmit() {
 
 		if ( $_POST && isset( $_POST['wwh_action'] ) ) {
@@ -67,6 +75,8 @@ class WWH_Dashboard_Index {
 							WWH_Orders_DB::get_instance()->setFinishOrder($args);
 						}
 
+						wwh_redirect_to( home_url(WWH_PAGE_URL) );
+
 						break;
 					case 'start-order':
 						$verify_nonce = WWH_Nonce_Nonces::get_instance()->verifyNonceField([
@@ -84,6 +94,8 @@ class WWH_Dashboard_Index {
 							WWH_Orders_DB::get_instance()->setWorkingOrder($args);
 						}
 
+						wwh_redirect_to( home_url(WWH_PAGE_URL) );
+						
 						break;
 					case 'release-order':
 						$args = [
@@ -91,6 +103,9 @@ class WWH_Dashboard_Index {
 							'note' 		 => isset($_POST['messageTextArea']) ? $_POST['messageTextArea'] : ''
 						];
 						WWH_Orders_DB::get_instance()->setNewOrder($args);
+
+						wwh_redirect_to( home_url(WWH_PAGE_URL) );
+
 						break;
 				}
 			}
@@ -101,7 +116,7 @@ class WWH_Dashboard_Index {
 	public function route( $args = [] )	{
 
     $action = isset( $args['action'] ) ? $args['action'] : false;
-
+		$this->setAction($action);
 		if ( WWH_User_Check::get_instance()->is_admin() || WWH_User_Check::get_instance()->is_warehouse() ) {
 			switch ( $action ) {
 				case 'order-details':

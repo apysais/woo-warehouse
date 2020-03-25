@@ -44,8 +44,8 @@ class WWH_Orders_CustomerInfo
 
   }
 
-  public function show() {
-    $data = [];
+  public function show( $args = [] ) {
+    $data = $args;
     WWH_View::get_instance()->public_partials( 'orders/customer-info.php', $data );
   }
 

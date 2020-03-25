@@ -47,7 +47,7 @@ class WWH_TemplateInclude
   public function wharehouseTemplate( $template ) {
 
     if ( is_page( WWH_PAGE_URL ) ) {
-        $action = '';
+        $action = 'dashboard';
         if ( isset( $_GET['action'] ) ) {
           $action = $_GET['action'];
         }

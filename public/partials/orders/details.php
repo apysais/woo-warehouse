@@ -57,5 +57,5 @@
 </div>
 
 <div class="container">
-  <?php WWH_Orders_CustomerInfo::get_instance()->show(); ?>
+  <?php WWH_Orders_CustomerInfo::get_instance()->show(['order'=>$orders]); ?>
 </div>

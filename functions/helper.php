@@ -63,3 +63,12 @@ function wwh_verify_username_password($user, $username, $password) {
 	}
 }
 add_filter('authenticate', 'wwh_verify_username_password', 1, 3);
+
+function wwh_redirect_to( $url ) {
+	?>
+	<script type="text/javascript">
+		window.location = '<?php echo $url; ?>';
+	</script>
+	<?php
+	die();
+}

@@ -12,5 +12,4 @@
   </div>
 
 </div>
-
-<?php WWH_View::get_instance()->public_partials( 'footer.php' ); ?>
+<?php WWH_View::get_instance()->public_partials( 'footer.php', $data ); ?>
