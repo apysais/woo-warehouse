@@ -56,8 +56,8 @@ class WWH_Orders_DB {
         $order = wc_get_order(  $order_id );
         // Add the note
         $order->add_order_note( $note );
-        WWH_Orders_WareHouseStatus::get_instance()->setToReleased( $order_id );
       }
+			WWH_Orders_WareHouseStatus::get_instance()->setToReleased( $order_id );
     }
   }
 
