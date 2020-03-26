@@ -51,7 +51,6 @@ class WWH_Dashboard_Index {
 	}
 
 	public function postSubmit() {
-
 		if ( $_POST && isset( $_POST['wwh_action'] ) ) {
 			$action = isset( $_POST['wwh_action'] ) ? $_POST['wwh_action'] : false;
 			$order_id = $_POST['order_id'];
@@ -95,7 +94,7 @@ class WWH_Dashboard_Index {
 						}
 
 						wwh_redirect_to( home_url(WWH_PAGE_URL) );
-						
+
 						break;
 					case 'release-order':
 						$args = [
@@ -132,8 +131,11 @@ class WWH_Dashboard_Index {
 	      default :
 					if ( WWH_User_Check::get_instance()->is_admin() ) {
 	        	add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getNewOrders'], 100);
+	        	add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getReleasedOrders'], 100);
+	        	add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getWorkingOrders'], 100);
 					} elseif ( WWH_User_Check::get_instance()->is_warehouse() ) {
 						add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getReleasedOrders'], 100);
+						add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getWorkingOrders'], 100);
 					}
 	      	break;
 	    }

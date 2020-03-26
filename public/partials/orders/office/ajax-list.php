@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     <?php if ( $orders ) : ?>
-      <?php foreach ( $orders->orders as $order ) : ?>
+      <?php foreach ( $orders as $order ) : ?>
         <?php
           $order_id = $order->get_id();
         ?>
@@ -22,7 +22,11 @@
           <td><?php echo $order->get_status(); ?></td>
           <td><?php echo $order->get_billing_first_name() . $order->get_billing_last_name();?></td>
           <td><?php echo $order->get_item_count(); ?></td>
-          <td><?php echo $order->get_formatted_order_total(); ?></td>
+          <td>
+            <?php if ( WWH_User_Check::get_instance()->is_admin() ) : ?>
+              <?php echo $order->get_formatted_order_total(); ?>
+            <?php endif; ?>
+          </td>
           <td>
             <?php if ( WWH_User_Check::get_instance()->is_admin() ) : ?>
               <?php

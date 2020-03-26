@@ -46,16 +46,40 @@ class WWH_Ajax {
   }
 
   public function dashboardAdminOrder() {
-    $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
-		$query_args = [
-				'paginate' => true,
-		    'paged' => $paged,
-				'status' => ['processing', 'on-hold'],
-		    'orderby' => 'modified',
-		    'order' => 'DESC',
-				'meta_key' => 'wh_order_status',
-				'meta_compare' => 'NOT EXISTS'
-		];
+		$query_args = [];
+		switch( $_POST['order_status'] ) {
+			case 'new':
+				$query_args = [
+						'limit' => -1,
+						'status' => ['processing'],
+						'orderby' => 'modified',
+						'order' => 'DESC',
+						'meta_key' => 'wh_order_status',
+						'meta_compare' => 'NOT EXISTS'
+				];
+				break;
+			case 'released':
+				$query_args = [
+						'limit' => -1,
+						'status' => ['processing'],
+						'orderby' => 'modified',
+						'order' => 'DESC',
+						'meta_key' => 'wh_order_status',
+						'meta_value' => 'released',
+				];
+				break;
+			case 'working':
+				$query_args = [
+						'limit' => -1,
+						'status' => ['processing'],
+						'orderby' => 'modified',
+						'order' => 'DESC',
+						'meta_key' => 'wh_order_status',
+						'meta_value' => 'working',
+				];
+				break;
+		}
+
 		$orders = wc_get_orders( $query_args );
 
     $data = [
@@ -69,15 +93,39 @@ class WWH_Ajax {
   }
 
   public function dashboardWarehouseOrder() {
-    $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
-		$query_args = [
-				'paginate' => true,
-				'paged' => $paged,
-		    'orderby' => 'modified',
-		    'order' => 'DESC',
-				'meta_key' => 'wh_order_status',
-				'meta_value' => ['released', 'working'],
-		];
+
+		switch( $_POST['order_status'] ) {
+			case 'new':
+				$query_args = [
+						'limit' => -1,
+						'status' => ['processing'],
+						'orderby' => 'modified',
+						'order' => 'DESC',
+						'meta_key' => 'wh_order_status',
+						'meta_compare' => 'NOT EXISTS'
+				];
+				break;
+			case 'released':
+				$query_args = [
+						'limit' => -1,
+						'status' => ['processing'],
+						'orderby' => 'modified',
+						'order' => 'DESC',
+						'meta_key' => 'wh_order_status',
+						'meta_value' => 'released',
+				];
+				break;
+			case 'working':
+				$query_args = [
+						'limit' => -1,
+						'status' => ['processing'],
+						'orderby' => 'modified',
+						'order' => 'DESC',
+						'meta_key' => 'wh_order_status',
+						'meta_value' => 'working',
+				];
+				break;
+		}
 
 		$orders = wc_get_orders( $query_args );
 

@@ -48,15 +48,16 @@
                   <input type="text" class="form-control form-control-sm" id="colli" name="colli">
                 </div>
                 <div class="form-group">
-                  <label for="placement">Colli</label>
+                  <label for="placement">Placement</label>
                   <select name="placement" class="form-control form-control-sm" id="placement">
-                    <option value="1">Building 1</option>
-                    <option value="2">Building 2</option>
-                    <option value="3">Building 3</option>
-                    <option value="4">Building 4</option>
-                    <option value="5">Building 5</option>
-                    <option value="6">Building 6</option>
-                    <option value="7">Building 7</option>
+                    <option value="1">Kold hal</option>
+                    <option value="2">Varm hal</option>
+                    <option value="3">Reol</option>
+                    <option value="4">Kold hal</option>
+                    <option value="5">Reol ved bæk</option>
+                    <option value="6">Ny hal</option>
+                    <option value="7">Ny plads</option>
+                    <option value="8">Ved bækken</option>
                   </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Release Now</button>

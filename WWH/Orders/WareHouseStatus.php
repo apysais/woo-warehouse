@@ -80,7 +80,7 @@ class WWH_Orders_WareHouseStatus {
       'action'  => 'r',
       'single'  => true
     ]);
-		
+
     return $get ? $get : 'new';
   }
 

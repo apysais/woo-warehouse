@@ -42,7 +42,7 @@ class WWH_Orders_Order {
 
   public function __construct() { }
 
-	public function getReleasedOrders() {
+	public function _getReleasedOrders() {
 		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
 				'paginate' => true,
@@ -57,7 +57,7 @@ class WWH_Orders_Order {
 
     $data = [
       'title' => 'For Released Orders',
-			'orders' => $orders,
+			'orders' => $orders->orders,
 			'app' => 'index',
     ];
 
@@ -68,11 +68,10 @@ class WWH_Orders_Order {
    * Get new orders, this is for officers only.
    */
 	public function getNewOrders() {
-		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+		//$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
-				'paginate' => true,
-		    'paged' => $paged,
-				'status' => ['processing', 'on-hold'],
+				'limit' => -1,
+				'status' => ['processing'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
 				'meta_key' => 'wh_order_status',
@@ -84,6 +83,57 @@ class WWH_Orders_Order {
       'title' => 'New Orders',
 			'orders' => $orders,
 			'app' => 'index',
+			'order_status' => 'new'
+    ];
+
+    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
+  }
+
+  /**
+   * Get released orders, this is for officers only.
+   */
+	public function getReleasedOrders() {
+		//$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+		$query_args = [
+				'limit' => -1,
+				'status' => ['processing'],
+		    'orderby' => 'modified',
+		    'order' => 'DESC',
+				'meta_key' => 'wh_order_status',
+				'meta_value' => 'released'
+		];
+		$orders = wc_get_orders( $query_args );
+
+    $data = [
+      'title' => 'Released Orders',
+			'orders' => $orders,
+			'app' => 'index',
+			'order_status' => 'released'
+    ];
+
+    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
+  }
+
+  /**
+   * Get working orders, this is for officers only.
+   */
+	public function getWorkingOrders() {
+		//$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+		$query_args = [
+				'limit' => -1,
+				'status' => ['processing'],
+		    'orderby' => 'modified',
+		    'order' => 'DESC',
+				'meta_key' => 'wh_order_status',
+				'meta_value' => 'working'
+		];
+		$orders = wc_get_orders( $query_args );
+
+    $data = [
+      'title' => 'Working Orders',
+			'orders' => $orders,
+			'app' => 'index',
+			'order_status' => 'working'
     ];
 
     WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );

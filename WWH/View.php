@@ -292,7 +292,10 @@ class WWH_View{
 		 * $data['one'] = 1;
 		 * would be $one and echo 1
 		 * */
-		extract($data);
+		if ( is_array($data) ) {
+			extract($data);
+		}
+
 		if( file_exists($template_public) ){
 			if(!$require_once) {
 				require $template_public;
