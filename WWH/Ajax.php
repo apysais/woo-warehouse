@@ -78,6 +78,16 @@ class WWH_Ajax {
 						'meta_value' => 'working',
 				];
 				break;
+			case 'done':
+				$query_args = [
+						'limit' => -1,
+						'status' => ['processing', 'on-hold'],
+						'orderby' => 'modified',
+						'order' => 'DESC',
+						'meta_key' => 'wh_order_status',
+						'meta_value' => 'done',
+				];
+				break;
 		}
 
 		$orders = wc_get_orders( $query_args );

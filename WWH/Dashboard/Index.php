@@ -125,7 +125,7 @@ class WWH_Dashboard_Index {
 					add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getOrderDetails'], 100);
 					break;
 				case 'orders':
-					add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getAll'], 100);
+					add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getDoneOrders'], 100);
 					break;
 	      case 'dashboard' :
 	      default :
@@ -133,6 +133,7 @@ class WWH_Dashboard_Index {
 	        	add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getNewOrders'], 100);
 	        	add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getReleasedOrders'], 100);
 	        	add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getWorkingOrders'], 100);
+	        	add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getReadyOrders'], 100);
 					} elseif ( WWH_User_Check::get_instance()->is_warehouse() ) {
 						add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getReleasedOrders'], 100);
 						add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getWorkingOrders'], 100);

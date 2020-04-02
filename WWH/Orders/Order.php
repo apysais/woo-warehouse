@@ -42,27 +42,6 @@ class WWH_Orders_Order {
 
   public function __construct() { }
 
-	public function _getReleasedOrders() {
-		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
-		$query_args = [
-				'paginate' => true,
-				'paged' => $paged,
-		    'orderby' => 'modified',
-		    'order' => 'DESC',
-				'meta_key' => 'wh_order_status',
-				'meta_value' => ['released', 'working'],
-		];
-
-		$orders = wc_get_orders( $query_args );
-
-    $data = [
-      'title' => 'For Released Orders',
-			'orders' => $orders->orders,
-			'app' => 'index',
-    ];
-
-    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
-	}
 
   /**
    * Get new orders, this is for officers only.
@@ -138,6 +117,53 @@ class WWH_Orders_Order {
 
     WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
   }
+
+  /**
+   * Get ready orders, this is for officers only.
+   */
+	public function getReadyOrders() {
+		//$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+		$query_args = [
+				'limit' => -1,
+				'status' => ['processing', 'on-hold'],
+		    'orderby' => 'modified',
+		    'order' => 'DESC',
+				'meta_key' => 'wh_order_status',
+				'meta_value' => 'done'
+		];
+		$orders = wc_get_orders( $query_args );
+
+    $data = [
+      'title' => 'Ready Orders',
+			'orders' => $orders,
+			'app' => 'index',
+			'order_status' => 'done'
+    ];
+
+    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
+  }
+
+	/**
+	 * get all orders.
+	 **/
+	public function getDoneOrders() {
+		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+		$query_args = [
+	    'paginate' => true,
+			'paged' => $paged,
+			'status' => ['completed'],
+	    'orderby' => 'date',
+	    'order' => 'DESC',
+		];
+		$orders = wc_get_orders( $query_args );
+
+    $data = [
+      'title' => 'Orders',
+			'orders' => $orders
+    ];
+		//wwh_dd($orders);exit();
+    WWH_View::get_instance()->public_partials( 'orders/office/orders.php', $data );
+	}
 
 	/**
 	 * get all orders.

@@ -87,11 +87,32 @@
 
       }
 
+      function get_orders_ready(ajax_action) {
+
+          var _order_html = $('.list-order-done .table');
+          var _get_orders = jQuery.ajax({
+              type: "POST",
+              url: wwh.ajax_url,
+              data: {
+                action: ajax_action,
+                order_status: 'done'
+              },
+              async: false
+          }).done( function(html) {
+              _order_html.html( html );
+              setTimeout( function(){
+                get_orders_ready(ajax_action);
+              }, 10000);
+          });
+
+      }
+
       if ( typeof ajax_action !== 'undefined' ) {
         if ( ajax_action == 'get_dashboard_admin_order' ) {
           get_orders_new(ajax_action);
           get_orders_released(ajax_action);
           get_orders_working(ajax_action);
+          get_orders_ready(ajax_action);
         } else if ( ajax_action == 'get_dashboard_warehouse_order' ) {
           get_orders_released(ajax_action);
           get_orders_working(ajax_action);
