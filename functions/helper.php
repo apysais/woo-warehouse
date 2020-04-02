@@ -3,6 +3,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+function wwh_placement( $val = 0 ) {
+	$arr = [
+		1 => 'Kold hal',
+		2	=> 'Varm hal',
+		3 => 'Reol',
+		4 => 'Reol ved bæk',
+		5 => 'Ny hal',
+		6 => 'Ny plads',
+		7 => 'Ved bækken',
+	];
+	if ( $val == 0 ){
+		return $arr;
+	}else{
+		return $arr[$val];
+	}
+}
+
 function wwh_dd( $arr = [] ) {
 	echo '<pre>';
 	print_r($arr);

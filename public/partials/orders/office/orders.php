@@ -27,7 +27,11 @@ echo 'Page 1 of ' . $orders->max_num_pages . "\n";
           <td><?php echo $order->get_status(); ?></td>
           <td><?php echo $order->get_billing_first_name() . $order->get_billing_last_name();?></td>
           <td><?php echo $order->get_item_count(); ?></td>
-          <td><?php echo $order->get_formatted_order_total(); ?></td>
+          <td>
+            <?php if ( WWH_User_Check::get_instance()->is_admin() ) : ?>
+              <?php echo $order->get_formatted_order_total(); ?>
+            <?php endif; ?>
+          </td>
           <td>
             <?php if ( WWH_User_Check::get_instance()->is_admin() ) : ?>
               <?php
@@ -42,11 +46,11 @@ echo 'Page 1 of ' . $orders->max_num_pages . "\n";
             <?php
               $status_arg = [
                 'order_id' => $order_id,
-                'status' => WWH_Orders_WareHouseStatus::get_instance()->get( $order_id )
+                'status' => WWH_Orders_WareHouseStatus::get_instance()->get( $order_id ),
+                'woo_status' => $order->get_status()
               ];
-
+              WWH_Orders_StatusAction::get_instance()->showClickedStatus( $status_arg );
             ?>
-            <?php WWH_Orders_StatusAction::get_instance()->showClickedStatus( $status_arg ); ?>
           </td>
           <td>
             <?php
@@ -65,7 +69,7 @@ echo 'Page 1 of ' . $orders->max_num_pages . "\n";
                 'single' => true
               ]);
               if ( $placement ) {
-                echo 'Building ' . $placement;
+                echo wwh_placement($placement);
               }
             ?>
           </td>

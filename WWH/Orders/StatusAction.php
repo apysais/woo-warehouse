@@ -50,6 +50,7 @@ class WWH_Orders_StatusAction {
    * }
    */
   public function showClickedStatus( $arg = []) {
+		$woo_status = isset($arg['woo_status']) ? $arg['woo_status'] : false;
     $status = 'new';
     $html = '';
 		//this is for the admin user role
@@ -103,9 +104,18 @@ class WWH_Orders_StatusAction {
 					'action_url' => '?action=set-order&status=released&order-id='.$order_id
 				];
 				$nonce_url = WWH_Nonce_Nonces::get_instance()->setReleaseOrderNonce($nonce_url_args);
-	      $html = "<a href='#' class='btn btn-success'>";
-	        $html .= "Done";
-	      $html .= "</a>";
+				$class = 'btn-primary';
+				$button_link_name = 'Un Known';
+				if ( $woo_status == 'completed' ) {
+					$class = 'btn-success';
+					$button_link_name = 'Done';
+				} elseif ( $woo_status == 'processing' || $woo_status == 'on-hold' ) {
+					$class = 'btn-warning';
+					$button_link_name = 'Ready';
+				}
+				$html = "<a href='#' class='btn {$class}'>";
+					$html .= $button_link_name;
+				$html .= "</a>";
 			}
 		}
 

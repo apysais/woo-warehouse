@@ -72,8 +72,9 @@ class WWH_Orders_Release
   public function showNotes( $arg = [] ) {
     $data = [];
     $post_id = $arg['order_id'];
+    $customer_note = $arg['customer_note'];
 
-		WWH_Orders_Notes::get_instance()->showInternal($post_id);
+		WWH_Orders_Notes::get_instance()->showInternal($post_id, $customer_note);
   }
 
 

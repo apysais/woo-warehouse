@@ -19,6 +19,7 @@
     <?php if ( $orders ) : ?>
       <?php foreach ( $orders->get_items() as $item ) : ?>
               <?php
+
                 //$product = $item->get_product();
                 //wwh_dd($item);
               ?>
@@ -37,8 +38,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                   <?php endif;?>
+                  <td><?php echo $item->get_quantity(); ?></td>
                 </td>
 
               </tr>
@@ -53,7 +54,7 @@
 </div>
 
 <div class="container">
-  <?php WWH_Orders_Release::get_instance()->showNotes(['order_id'=>$order_id]); ?>
+  <?php WWH_Orders_Release::get_instance()->showNotes(['order_id' => $order_id, 'customer_note' => $orders->get_customer_note()]); ?>
 </div>
 
 <div class="container">

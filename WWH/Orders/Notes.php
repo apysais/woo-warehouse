@@ -66,10 +66,31 @@ class WWH_Orders_Notes {
   /**
    * display note.
    */
-  public function showInternal( $order_id ) {
+  public function showInternal( $order_id, $customer_note ) {
     $notes = $this->get([
       'order_id' => $order_id,
       'type' => 'internal'
+    ]);
+    $notes_customer = $this->get([
+      'order_id' => $order_id,
+      'type' => 'customer'
+    ]);
+    $data = [
+      'notes' => $notes,
+      'notes_customer' => $notes_customer,
+			'customer_note' => $customer_note
+    ];
+
+    WWH_View::get_instance()->public_partials( 'orders/notes.php', $data );
+  }
+
+  /**
+   * display note.
+   */
+  public function showCustomer( $order_id ) {
+    $notes = $this->get([
+      'order_id' => $order_id,
+      'type' => 'customer'
     ]);
     $data = [
       'notes' => $notes

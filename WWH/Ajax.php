@@ -51,7 +51,7 @@ class WWH_Ajax {
 			case 'new':
 				$query_args = [
 						'limit' => -1,
-						'status' => ['processing'],
+						'status' => ['processing', 'on-hold'],
 						'orderby' => 'modified',
 						'order' => 'DESC',
 						'meta_key' => 'wh_order_status',
@@ -61,7 +61,7 @@ class WWH_Ajax {
 			case 'released':
 				$query_args = [
 						'limit' => -1,
-						'status' => ['processing'],
+						'status' => ['processing', 'on-hold'],
 						'orderby' => 'modified',
 						'order' => 'DESC',
 						'meta_key' => 'wh_order_status',
@@ -71,7 +71,7 @@ class WWH_Ajax {
 			case 'working':
 				$query_args = [
 						'limit' => -1,
-						'status' => ['processing'],
+						'status' => ['processing', 'on-hold'],
 						'orderby' => 'modified',
 						'order' => 'DESC',
 						'meta_key' => 'wh_order_status',

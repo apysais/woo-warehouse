@@ -44,11 +44,11 @@
               <?php
                 $status_arg = [
                   'order_id' => $order_id,
-                  'status' => WWH_Orders_WareHouseStatus::get_instance()->get( $order_id )
+                  'status' => WWH_Orders_WareHouseStatus::get_instance()->get( $order_id ),
+                  'woo_status' => $order->get_status()
                 ];
-
+                WWH_Orders_StatusAction::get_instance()->showClickedStatus( $status_arg );
               ?>
-              <?php WWH_Orders_StatusAction::get_instance()->showClickedStatus( $status_arg ); ?>
             </td>
             <td>
               <?php
@@ -67,7 +67,7 @@
                   'single' => true
                 ]);
                 if ( $placement ) {
-                  echo 'Building ' . $placement;
+                  echo wwh_placement($placement);
                 }
               ?>
             </td>

@@ -36,10 +36,13 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.2.2 =
+* update button class and label
+
 = 1.2 =
 * Added set order status by officer and added comments or notes.
 * Warehouse to set orders worked and done.
-* Added login and logout 
+* Added login and logout
 
 = 1.0 =
 * First Release

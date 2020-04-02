@@ -71,7 +71,7 @@ class WWH_Orders_Order {
 		//$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
 				'limit' => -1,
-				'status' => ['processing'],
+				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
 				'meta_key' => 'wh_order_status',
@@ -96,7 +96,7 @@ class WWH_Orders_Order {
 		//$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
 				'limit' => -1,
-				'status' => ['processing'],
+				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
 				'meta_key' => 'wh_order_status',
@@ -121,7 +121,7 @@ class WWH_Orders_Order {
 		//$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
 				'limit' => -1,
-				'status' => ['processing'],
+				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
 				'meta_key' => 'wh_order_status',

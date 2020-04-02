@@ -49,16 +49,12 @@
                 </div>
                 <div class="form-group">
                   <label for="placement">Placement</label>
+                  <?php $placements = wwh_placement(); ?>
                   <select name="placement" class="form-control form-control-sm" id="placement">
-                    <option value="1">Kold hal</option>
-                    <option value="2">Varm hal</option>
-                    <option value="3">Reol</option>
-                    <option value="4">Kold hal</option>
-                    <option value="5">Reol ved bæk</option>
-                    <option value="6">Ny hal</option>
-                    <option value="7">Ny plads</option>
-                    <option value="8">Ved bækken</option>
-                  </select>
+                    <?php foreach( $placements as $k_placement => $v_placement) : ?>
+                        <option value="<?php echo $k_placement;?>"><?php echo $v_placement;?></option>
+                    <?php endforeach; ?>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Release Now</button>
               </form>
