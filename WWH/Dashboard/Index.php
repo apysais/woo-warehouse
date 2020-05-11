@@ -97,6 +97,7 @@ class WWH_Dashboard_Index {
 
 						if ( $verify_nonce ) {
 							WWH_Orders_DB::get_instance()->setFinishOrder($args);
+							WWH_Pusher::get_instance()->notifyWareHouse();
 						}
 
 						wwh_redirect_to( $redirect_url );
@@ -116,6 +117,7 @@ class WWH_Dashboard_Index {
 							];
 
 							WWH_Orders_DB::get_instance()->setWorkingOrder($args);
+							WWH_Pusher::get_instance()->notifyWareHouse();
 						}
 
 						wwh_redirect_to( $redirect_url );
@@ -138,7 +140,7 @@ class WWH_Dashboard_Index {
 						}
 
 						WWH_Orders_DB::get_instance()->setNewOrder($args);
-
+						WWH_Pusher::get_instance()->notifyWareHouse();
 						wwh_redirect_to( $redirect_url );
 
 						break;

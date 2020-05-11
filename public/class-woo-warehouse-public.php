@@ -95,9 +95,9 @@ class Woo_Warehouse_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_script( 'bootstrap4-iso', WWH_PLUGIN_URL . 'assets/bootstrap-iso/bootstrap.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woo-warehouse-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'bootstrap4-iso', WWH_PLUGIN_URL . 'assets/bootstrap-iso/bootstrap.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woo-warehouse-public.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . '-pusher-js', 'https://js.pusher.com/6.0/pusher.min.js', array( ), '6.0', true );
 		// Localize the script with new data
 		$wwh_localize_arr = array(
 		    'ajax_url' => admin_url( 'admin-ajax.php' )

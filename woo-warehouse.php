@@ -121,6 +121,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-woo-warehouse.php';
 
 require plugin_dir_path( __FILE__ ) . 'functions/helper.php';
 
+require plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 /**
  * Begins execution of the plugin.
  *
@@ -135,8 +136,7 @@ function run_woo_warehouse() {
 	$plugin = new Woo_Warehouse();
 	$plugin->run();
 
-
-
+	WWH_WOO_ThankYou::get_instance();
 	WWH_TemplateInclude::get_instance();
 	WWH_Ajax::get_instance();
 }

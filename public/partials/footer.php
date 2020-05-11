@@ -6,6 +6,7 @@
   <script src="<?php echo WWH_PLUGIN_URL . 'assets/jquery-3.4.1.min.js';?>"></script>
   <script src="<?php echo WWH_PLUGIN_URL . 'assets/popper.min.js';?>"></script>
   <script src="<?php echo WWH_PLUGIN_URL . 'assets/bootstrap-iso/bootstrap.min.js';?>"></script>
+  <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
   </body>
   <script type="text/javascript" >
     var ajax_action;
@@ -35,9 +36,6 @@
               async: false
           }).done( function(html) {
               _order_html.html( html );
-              setTimeout( function(){
-                get_orders_new(ajax_action);
-              }, 300000);
           });
 
       }
@@ -55,9 +53,6 @@
               async: false
           }).done( function(html) {
               _order_html.html( html );
-              setTimeout( function(){
-                get_orders_released(ajax_action);
-              }, 300000);
           });
 
       }
@@ -75,9 +70,6 @@
               async: false
           }).done( function(html) {
               _order_html.html( html );
-              setTimeout( function(){
-                get_orders_working(ajax_action);
-              }, 300000);
           });
 
       }
@@ -95,22 +87,30 @@
               async: false
           }).done( function(html) {
               _order_html.html( html );
-              setTimeout( function(){
-                get_orders_ready(ajax_action);
-              }, 300000);
           });
 
       }
       if ( typeof ajax_action !== 'undefined' ) {
-        if ( ajax_action == 'get_dashboard_admin_order' ) {
-          get_orders_new(ajax_action);
-          get_orders_released(ajax_action);
-          get_orders_working(ajax_action);
-          get_orders_ready(ajax_action);
-        } else if ( ajax_action == 'get_dashboard_warehouse_order' ) {
-          get_orders_released(ajax_action);
-          get_orders_working(ajax_action);
-        }
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('ec2fd4c2152b2cf0cfc2', {
+          cluster: 'eu'
+        });
+
+        var channel = pusher.subscribe('warehouse');
+        channel.bind('order', function(data) {
+          if ( data.order == 'notify' ) {
+            if ( ajax_action == 'get_dashboard_admin_order' ) {
+              get_orders_new(ajax_action);
+              get_orders_released(ajax_action);
+              get_orders_working(ajax_action);
+              get_orders_ready(ajax_action);
+            } else if ( ajax_action == 'get_dashboard_warehouse_order' ) {
+              get_orders_released(ajax_action);
+              get_orders_working(ajax_action);
+            }
+          }
+        });
       }
   	});
 	</script>
