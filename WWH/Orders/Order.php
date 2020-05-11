@@ -42,6 +42,27 @@ class WWH_Orders_Order {
 
   public function __construct() { }
 
+	public function showTemplate() {
+		$action = 'dashboard';
+
+		if ( isset($_GET['action']) && $_GET['action'] !== '' ) {
+			$action = $_GET['action'];
+		}
+
+		if ( $action == 'orders-local' ) {
+			return 'orders/office/local-list.php';
+		} else {
+			return 'orders/office/list.php';
+		}
+
+	}
+
+	public function getItemsOrder($orders_obj) {
+		$data = [];
+		$data['orders'] = $orders_obj;
+
+		WWH_View::get_instance()->public_partials( 'orders/detail-loop-product.php', $data );
+	}
 
   /**
    * Get new orders, this is for officers only.
@@ -65,7 +86,8 @@ class WWH_Orders_Order {
 			'order_status' => 'new'
     ];
 
-    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
+		$template = $this->showTemplate();
+    WWH_View::get_instance()->public_partials( $template, $data );
   }
 
   /**
@@ -90,7 +112,8 @@ class WWH_Orders_Order {
 			'order_status' => 'released'
     ];
 
-    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
+		$template = $this->showTemplate();
+    WWH_View::get_instance()->public_partials( $template, $data );
   }
 
   /**
@@ -115,7 +138,8 @@ class WWH_Orders_Order {
 			'order_status' => 'working'
     ];
 
-    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
+		$template = $this->showTemplate();
+    WWH_View::get_instance()->public_partials( $template, $data );
   }
 
   /**
@@ -140,7 +164,8 @@ class WWH_Orders_Order {
 			'order_status' => 'done'
     ];
 
-    WWH_View::get_instance()->public_partials( 'orders/office/list.php', $data );
+		$template = $this->showTemplate();
+    WWH_View::get_instance()->public_partials( $template, $data );
   }
 
 	/**
@@ -161,8 +186,9 @@ class WWH_Orders_Order {
       'title' => 'Orders',
 			'orders' => $orders
     ];
-		//wwh_dd($orders);exit();
-    WWH_View::get_instance()->public_partials( 'orders/office/orders.php', $data );
+
+		$template = $this->showTemplate();
+		WWH_View::get_instance()->public_partials( 'orders/office/orders.php', $data );
 	}
 
 	/**
@@ -183,7 +209,8 @@ class WWH_Orders_Order {
 			'orders' => $orders
     ];
 		//wwh_dd($orders);exit();
-    WWH_View::get_instance()->public_partials( 'orders/office/orders.php', $data );
+		$template = $this->showTemplate();
+    WWH_View::get_instance()->public_partials( $template, $data );
 	}
 
 	/**

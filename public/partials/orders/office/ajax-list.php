@@ -18,12 +18,24 @@
           $order_id = $order->get_id();
         ?>
         <tr>
-          <td scope="row"><?php echo $order_id; ?></td>
+          <td scope="row">
+            <a  class="accordion-toggle collapsed expand-button"
+                data-toggle="collapse"
+                href="#collapseList-<?php echo $order_id;?>"
+                data-target="#collapseList-<?php echo $order_id;?>"
+                aria-expanded="true"
+                aria-controls="collapseList-<?php echo $order_id;?>" >
+                <?php echo $order_id; ?>
+                <span class="expand-button"></span>
+            </a>
+            <?php wwh_shipping_icon($order); ?>
+            <?php wwh_important_icon($order_id); ?>
+          </td>
           <td><?php echo $order->get_status(); ?></td>
-          <td><?php echo $order->get_billing_first_name() . $order->get_billing_last_name();?></td>
+          <td><?php echo $order->get_billing_first_name() .' '. $order->get_billing_last_name();?></td>
           <td><?php echo $order->get_item_count(); ?></td>
           <td>
-            <?php if ( WWH_User_Check::get_instance()->is_admin() ) : ?>
+            <?php if ( wwh_is_admin() ) : ?>
               <?php echo $order->get_formatted_order_total(); ?>
             <?php endif; ?>
           </td>
@@ -67,6 +79,13 @@
                 echo wwh_placement($placement);
               }
             ?>
+          </td>
+        </tr>
+        <tr class="hide-table-padding">
+          <td colspan="8">
+            <div id="collapseList-<?php echo $order_id;?>" class="collapse" data-parentx="orderList" style="border: 2px dotted;">
+              <?php WWH_Orders_Order::get_instance()->getItemsOrder($order); ?>
+            </div>
           </td>
         </tr>
       <?php endforeach; ?>

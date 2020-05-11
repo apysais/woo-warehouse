@@ -10,10 +10,19 @@
       </address>
     </div>
     <div class="col-sm-12 col-md-6">
-      <h5>Delivery Address</h5>
-      <address>
-        <p><?php echo $order->get_formatted_shipping_address(); ?></p>
-      </address>
+      <?php
+        $shipping = wwh_get_shipping_methods($order);
+        $local = false;
+        if ( $shipping && isset($shipping['shipping_method_id']) ) {
+          $local = $shipping['shipping_method_id'];
+        }
+      ?>
+      <?php if ( $local != 'local_pickup' ) : ?>
+        <h5>Delivery Address</h5>
+        <address>
+          <p><?php echo $order->get_formatted_shipping_address(); ?></p>
+        </address>
+      <?php endif;?>
     </div>
   </div>
 </div>

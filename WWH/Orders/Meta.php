@@ -43,6 +43,45 @@ class WWH_Orders_Meta {
   public function __construct() { }
 
   /**
+  * Set order important.
+  * @param array $args {
+  *		Array of arguments.
+  *		@type int $post_id the article id, required.
+  *		@type bool $single this will return string if true else array if false. default is false.
+  *		@type string $action CRUD action, default is read.
+  *			accepted values: r (read), u (update), d (delete)
+  *		@type string $prefix the prefix meta key.
+  * }
+  * @return  $action, r = get_post_meta(), u = update_post_meta(), d = delete_post_meta
+  **/
+  public function important( $args = [] ) {
+    $prefix = 'wh_important';
+    if ( isset ( $args['post_id'] ) ) {
+
+      $defaults = array(
+        'single'  => false,
+        'action'  => 'r',
+        'value'   => '',
+        'prefix'  => $prefix
+      );
+
+      $args = wp_parse_args( $args, $defaults );
+
+      switch( $args['action'] ) {
+        case 'd':
+          delete_post_meta( $args['post_id'], $args['prefix'], $args['value'] );
+          break;
+        case 'u':
+          update_post_meta( $args['post_id'], $args['prefix'], $args['value'] );
+          break;
+        case 'r':
+          return get_post_meta( $args['post_id'], $args['prefix'], $args['single'] );
+          break;
+      }
+    }
+  }
+
+  /**
   * colli.
   * @param array $args {
   *		Array of arguments.

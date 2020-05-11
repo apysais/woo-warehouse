@@ -6,7 +6,8 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
 	<title>Warehouse - <?php echo get_bloginfo('title'); ?></title>
 	<?php //wp_head(); ?>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="<?php echo WWH_PLUGIN_URL . 'assets/bootstrap.min.css';?>">
+	<link rel="stylesheet" href="<?php echo WWH_PLUGIN_URL . 'assets/fontawesome-free-5.13.0-web/css/all.min.css';?>">
 
 
 </head>

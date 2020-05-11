@@ -175,9 +175,7 @@ class WWH_View{
 	 * */
 	public function public_part_partials($template_file){
 		$template = 'public/partials/' . $template_file;
-
 		$template_public = $this->get_in_plugin($template);
-
 		if( file_exists($template_public) ){
 			return $template_public;
 		}else{
@@ -285,7 +283,9 @@ class WWH_View{
 		/**
 		 * path to admin template
 		 * */
+		//echo $template_file;
 		$template_public = $this->public_part_partials($template_file);
+		//echo $template_public;
 		/**
 		 * extract the data so it will be variable only
 		 * sample:

@@ -1,8 +1,9 @@
+<?php $orders = wc_get_order( $order_id ); ?>
 <h2>Order #<?php echo $order_id; ?></h2>
 
-<?php
-  $orders = wc_get_order( $order_id );
-?>
+<?php if ( wwh_is_admin() ) : ?>
+  <h3>Total : <?php echo $orders->get_formatted_order_total(); ?></h3>
+<?php endif; ?>
 
 <table class="table">
   <thead>
@@ -19,7 +20,6 @@
     <?php if ( $orders ) : ?>
       <?php foreach ( $orders->get_items() as $item ) : ?>
               <?php
-
                 //$product = $item->get_product();
                 //wwh_dd($item);
               ?>
@@ -29,6 +29,7 @@
                   <?php echo $item->get_name();?>
                   <?php
                     $formatted_meta_data = $item->get_formatted_meta_data();
+                    //wwh_dd($formatted_meta_data);
                   ?>
                   <?php if ( $formatted_meta_data ) : ?>
                     <?php foreach( $formatted_meta_data as $data) : ?>
@@ -51,6 +52,13 @@
 <div class="container">
   <?php WWH_Orders_Release::get_instance()->show(['order_id'=>$order_id]); ?>
   <?php WWH_Orders_Release::get_instance()->showReleased(['order_id'=>$order_id]); ?>
+  <?php if ( wwh_is_admin() ) : ?>
+  <div class="jumbotron" style="padding:20px !important;">
+    <div class="">
+      <?php WWH_StatusButtonHtml::get_instance()->cancelOrder($order_id); ?>
+    </div>
+  </div>
+  <?php endif; ?>
 </div>
 
 <div class="container">

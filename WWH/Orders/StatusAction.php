@@ -51,6 +51,7 @@ class WWH_Orders_StatusAction {
    */
   public function showClickedStatus( $arg = []) {
 		$woo_status = isset($arg['woo_status']) ? $arg['woo_status'] : false;
+		$redirect = isset($arg['redirect']) ? $arg['redirect'] : false;
     $status = 'new';
     $html = '';
 		//this is for the admin user role
@@ -59,7 +60,7 @@ class WWH_Orders_StatusAction {
 				$order_id = $arg['order_id'];
 				$nonce_url_args = [
 					'order_id' => $order_id,
-					'action_url' => '?action=set-order&status=new&order-id='.$order_id
+					'action_url' => '?action=set-order&status=new&order-id='.$order_id.'&redirect='.$redirect
 				];
 				$nonce_url = WWH_Nonce_Nonces::get_instance()->setNewOrderNonce($nonce_url_args);
 	      $html = "<a href='{$nonce_url}' class='btn btn-info'>";
@@ -73,7 +74,7 @@ class WWH_Orders_StatusAction {
 				$order_id = $arg['order_id'];
 				$nonce_url_args = [
 					'order_id' => $order_id,
-					'action_url' => '?action=set-order&status=released&order-id='.$order_id
+					'action_url' => '?action=set-order&status=released&order-id='.$order_id.'&redirect='.$redirect
 				];
 				$nonce_url = WWH_Nonce_Nonces::get_instance()->setReleaseOrderNonce($nonce_url_args);
 	      $html = "<a href='{$nonce_url}' class='btn btn-info'>";
@@ -87,7 +88,7 @@ class WWH_Orders_StatusAction {
 				$order_id = $arg['order_id'];
 				$nonce_url_args = [
 					'order_id' => $order_id,
-					'action_url' => '?action=set-order&status=released&order-id='.$order_id
+					'action_url' => '?action=set-order&status=released&order-id='.$order_id.'&redirect='.$redirect
 				];
 				$nonce_url = WWH_Nonce_Nonces::get_instance()->setReleaseOrderNonce($nonce_url_args);
 	      $html = "<a href='{$nonce_url}' class='btn btn-info'>";
@@ -101,7 +102,7 @@ class WWH_Orders_StatusAction {
 				$order_id = $arg['order_id'];
 				$nonce_url_args = [
 					'order_id' => $order_id,
-					'action_url' => '?action=set-order&status=released&order-id='.$order_id
+					'action_url' => '?action=set-order&status=released&order-id='.$order_id.'&redirect='.$redirect
 				];
 				$nonce_url = WWH_Nonce_Nonces::get_instance()->setReleaseOrderNonce($nonce_url_args);
 				$class = 'btn-primary';
@@ -131,6 +132,7 @@ class WWH_Orders_StatusAction {
    */
 	public function showReleasedButton( $arg = [] ) {
 		$status = 'new';
+		$redirect = isset($arg['redirect']) ? $arg['redirect'] : false;
     $html = '';
 
 		if ( WWH_User_Check::get_instance()->is_admin() ) {
@@ -138,7 +140,7 @@ class WWH_Orders_StatusAction {
 				$order_id = $arg['order_id'];
 				$nonce_url_args = [
 					'order_id' => $order_id,
-					'action_url' => '?action=set-order&status=new&order-id='.$order_id
+					'action_url' => '?action=set-order&status=new&order-id='.$order_id.'&redirect='.$redirect
 				];
 				$nonce_url = WWH_Nonce_Nonces::get_instance()->setNewOrderNonce($nonce_url_args);
 	      $html = "<a href='{$nonce_url}' class='btn btn-info'>";

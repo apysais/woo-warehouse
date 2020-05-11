@@ -13,6 +13,12 @@
       <li class="nav-item <?php echo ($action == 'dashboard') ? 'active':'';?>">
         <a class="nav-link" href="<?php echo home_url( WWH_PAGE_URL . '/?action=dashboard' );?>">Dashboard <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item <?php echo ($action == 'orders-local') ? 'active':'';?>">
+        <a class="nav-link" href="<?php echo home_url( WWH_PAGE_URL . '/?action=orders-local' );?>">Local</a>
+      </li>
+      <li class="nav-item <?php echo ($action == 'orders-ready') ? 'active':'';?>">
+        <a class="nav-link" href="<?php echo home_url( WWH_PAGE_URL . '/?action=orders-ready' );?>">Ready</a>
+      </li>
       <li class="nav-item <?php echo ($action == 'orders') ? 'active':'';?>">
         <a class="nav-link" href="<?php echo home_url( WWH_PAGE_URL . '/?action=orders' );?>">Orders</a>
       </li>
