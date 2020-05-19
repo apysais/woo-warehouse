@@ -63,14 +63,20 @@ class WWH_Orders_Notes {
     return false;
   }
 
+	public function getComments( $order_id ) {
+		$notes = WWH_Orders_DB::get_instance()->getOrderNote([
+			'order_id' => $order_id
+		]);
+		return $notes;
+	}
+
   /**
    * display note.
    */
   public function showInternal( $order_id, $customer_note ) {
-    $notes = $this->get([
-      'order_id' => $order_id,
-      'type' => 'internal'
-    ]);
+
+    $notes = $this->getComments($order_id);
+
     $notes_customer = $this->get([
       'order_id' => $order_id,
       'type' => 'customer'
@@ -80,7 +86,6 @@ class WWH_Orders_Notes {
       'notes_customer' => $notes_customer,
 			'customer_note' => $customer_note
     ];
-
     WWH_View::get_instance()->public_partials( 'orders/notes.php', $data );
   }
 

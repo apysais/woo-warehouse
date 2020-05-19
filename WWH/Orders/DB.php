@@ -42,6 +42,38 @@ class WWH_Orders_DB {
 
   public function __construct() { }
 
+	public function getOrderNote( $arg = [] ) {
+		$order_id = isset($arg['order_id']) ? $arg['order_id'] : false;
+    if ( $order_id ) {
+
+			$comment_args = [
+				'post_id' => $order_id,
+				'type' => 'woo_warehouse_order',
+			];
+
+			return get_comments($comment_args);
+		}
+		return false;
+	}
+
+	public function warehouseComment( $arg = [] ) {
+		$order_id = isset($arg['order_id']) ? $arg['order_id'] : false;
+    if ( $order_id ) {
+      $note = isset($arg['note']) ? $arg['note'] : false;
+      //set status
+      //add order note, internally
+      if ( $note ) {
+        wp_insert_comment([
+					'comment_post_ID' => $order_id,
+					'comment_author' => 'woo warehouse',
+					'comment_agent' => 'woo warehouse',
+					'comment_content' => $note,
+					'comment_type' => 'woo_warehouse_order'
+				]);
+      }
+    }
+	}
+
   /**
    * set new order.
    */
@@ -56,6 +88,8 @@ class WWH_Orders_DB {
         $order = wc_get_order(  $order_id );
         // Add the note
         $order->add_order_note( $note );
+
+				$this->warehouseComment( $arg );
       }
 			WWH_Orders_WareHouseStatus::get_instance()->setToReleased( $order_id );
     }

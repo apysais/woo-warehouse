@@ -91,7 +91,7 @@
 
       }
       if ( typeof ajax_action !== 'undefined' ) {
-        Pusher.logToConsole = true;
+        Pusher.logToConsole = false;
 
         var pusher = new Pusher('ec2fd4c2152b2cf0cfc2', {
           cluster: 'eu'
