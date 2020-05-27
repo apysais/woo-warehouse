@@ -3,11 +3,13 @@
     <div class="row">
       <?php $status = WWH_Orders_WareHouseStatus::get_instance()->get($order_id);?>
 
-      <div class="col-sm-6 col-md-2">
-        <a class="btn btn-primary" href="<?php echo home_url(WWH_PAGE_URL . '/?action=dashboard');?>" role="button">
-          Back
-        </a>
-      </div>
+      <?php if ( isset($_GET['action']) && sanitize_text_field($_GET['action']) == 'set-order' ) : ?>
+        <div class="col-sm-6 col-md-2">
+          <a class="btn btn-primary" href="<?php echo home_url(WWH_PAGE_URL . '/?action=dashboard');?>" role="button">
+            Back
+          </a>
+        </div>
+      <?php endif; ?>
 
       <?php if ( $status == 'released' ) : ?>
         <div class="col-sm-6 col-md-2">

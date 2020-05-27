@@ -8,7 +8,12 @@
 	<?php //wp_head(); ?>
 	<link rel="stylesheet" href="<?php echo WWH_PLUGIN_URL . 'assets/bootstrap.min.css';?>">
 	<link rel="stylesheet" href="<?php echo WWH_PLUGIN_URL . 'assets/fontawesome-free-5.13.0-web/css/all.min.css';?>">
-
+	<style>
+		#search-container{
+			margin: 0;
+    	padding: 20px 0;
+		}
+	</style>
 
 </head>
 

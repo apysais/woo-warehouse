@@ -1,4 +1,5 @@
 <h3><?php echo $title;?></h3>
+
 <div class="list-order-<?php echo $order_status;?>">
   <table class="table" id="orderList">
     <thead>
@@ -86,7 +87,15 @@
           <tr class="hide-table-padding">
             <td colspan="8">
               <div id="collapseList-<?php echo $order_id;?>" class="collapse" data-parentx="orderList" style="border: 2px dotted;">
-                <?php WWH_Orders_Order::get_instance()->getItemsOrder($order); ?>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <?php WWH_Orders_Order::get_instance()->getItemsOrder($order); ?>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <?php WWH_Orders_Release::get_instance()->show(['order_id'=>$order_id]); ?>
+                    <?php WWH_Orders_Release::get_instance()->showReleased(['order_id'=>$order_id]); ?>
+                  </div>
+                </div>
               </div>
             </td>
           </tr>

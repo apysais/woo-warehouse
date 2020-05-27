@@ -7,6 +7,12 @@
 
     <?php WWH_View::get_instance()->public_partials( 'nav.php' ); ?>
 
+    <?php if ( is_user_logged_in() ) : ?>
+      <div class="container" id="search-container">
+        <?php WWH_Orders_Search::get_instance()->show(); ?>
+      </div>
+    <?php endif; ?>
+
     <?php do_action('warehouse_data'); ?>
 
   </div>

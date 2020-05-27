@@ -156,6 +156,9 @@ class WWH_Dashboard_Index {
 		$this->setAction($action);
 		if ( WWH_User_Check::get_instance()->is_admin() || WWH_User_Check::get_instance()->is_warehouse() ) {
 			switch ( $action ) {
+				case 'search-orders':
+					add_action('warehouse_data', [ WWH_Orders_Search::get_instance(), 'results'], 100);
+					break;
 				case 'orders-ready':
 					add_action('warehouse_data', [ WWH_Orders_Order::get_instance(), 'getReadyOrders'], 100);
 					break;

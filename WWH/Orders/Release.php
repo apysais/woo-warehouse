@@ -59,7 +59,10 @@ class WWH_Orders_Release
     $data = [];
     $post_id = $arg['order_id'];
     if ( ( WWH_User_Check::get_instance()->is_admin() || WWH_User_Check::get_instance()->is_warehouse() )
-				&& ( WWH_Orders_WareHouseStatus::get_instance()->get($post_id) == 'released' || WWH_Orders_WareHouseStatus::get_instance()->get($post_id) == 'working' )
+				&& (
+					WWH_Orders_WareHouseStatus::get_instance()->get($post_id) == 'released'
+					|| WWH_Orders_WareHouseStatus::get_instance()->get($post_id) == 'working'
+				)
 		) {
       $data = [
         'order_id' => $post_id

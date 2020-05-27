@@ -53,11 +53,11 @@
   <?php WWH_Orders_Release::get_instance()->show(['order_id'=>$order_id]); ?>
   <?php WWH_Orders_Release::get_instance()->showReleased(['order_id'=>$order_id]); ?>
   <?php if ( wwh_is_admin() ) : ?>
-  <div class="jumbotron" style="padding:20px !important;">
-    <div class="">
-      <?php WWH_StatusButtonHtml::get_instance()->cancelOrder($order_id); ?>
+    <div class="jumbotron" style="padding:20px !important;">
+      <div class="">
+        <?php WWH_StatusButtonHtml::get_instance()->cancelOrder($order_id); ?>
+      </div>
     </div>
-  </div>
   <?php endif; ?>
 </div>
 
